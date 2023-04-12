@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './sass/main.sass';
-import './indexo.css';
+import ReactDOM from 'react-dom/client';
+import App from './app';
 
-ReactDOM.render(
-  React.createElement('h1', null, 'Hello, world!!'),
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);

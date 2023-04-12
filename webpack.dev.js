@@ -1,30 +1,32 @@
 const path = require('path');
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { merge } = require('webpack-merge');
+// eslint-disable-next-line import/no-extraneous-dependencies
+// const webpack = require('webpack');
+// eslint-disable-next-line import/no-unresolved
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// eslint-disable-next-line import/extensions
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+      watch: true,
+    },
     hot: true,
-    watchContentBase: true
+    port: 3000,
   },
   module: {
-    rules: [
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-      }
-    ]
+    rules: [],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css'
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    // new MiniCssExtractPlugin({
+    //   filename: '[name].[hash].css',
+    //   chunkFilename: '[id].[hash].css'
+    // }),
+    // new webpack.HotModuleReplacementPlugin(),
+  ],
 });
