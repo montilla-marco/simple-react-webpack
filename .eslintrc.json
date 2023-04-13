@@ -21,16 +21,15 @@
       "error",
       "ignorePackages",
       {
-        "js": "always",
-        "jsx": "always"
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ],
     "react/function-component-definition": [
-      "error",
-      {
-        "namedComponents": "function-expression",
-        "unnamedComponents": "function-expression"
-      }
+      2,
+      { "namedComponents": "arrow-function" }
     ]
   }
 }
