@@ -1,3 +1,105 @@
+@import url('https://fonts.cdnfonts.com/css/roboto');
+:root {
+  --active-bg-color:#7950f2;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
-background-color: #fcfcfc;
+  box-sizing: border-box;
+  font-family: 'Roboto';
+  background-color: #f7f5f5;
+}
+
+.active {
+  background-color: var(--active-bg-color) !important;;
+}
+
+.steps {
+  margin: 10rem auto;
+  height: 40vh;
+  width: 50vw;
+  background-color: #ece7e7;
+
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.steps > div:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.numbers {
+  height: 33.3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.number {
+  height: 5rem;
+  width: 5rem;
+  padding-top: 1.6rem;
+  padding-left: 2.1rem;
+  font-size: 1.4rem;
+  background-color: #bdb8b8;
+  border-radius: 50%;
+}
+
+.message {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.message h1 {
+  text-align: center;
+  height: 23%;
+  width: 70%;
+  margin: 2rem auto;
+  font-size: 2rem;
+}
+
+.buttons {
+  height: 33.3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button {
+  color: #ece7e7;
+  text-transform: uppercase;
+  font-weight: 400;
+  width: 15%;
+  height: 35%;
+  border-radius: 1rem;
+  box-shadow: transparent;
+  border: 0;
+  background-color: #bdb8b8;
+  transition: all .1s;
+}
+
+.button:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.4);
+}
+
+.button:active {
+  transform: scale(.8);
+  box-shadow: 0 .5rem 1rem 0 rgba(0, 0, 0, 0.4);
 }
