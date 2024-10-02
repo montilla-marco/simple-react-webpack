@@ -1,4 +1,5 @@
 {
+  "parser": "@babel/eslint-parser",
   "env": {
     "browser": true,
     "es2021": true,
@@ -7,8 +8,12 @@
   "extends": ["plugin:react/recommended", "plugin:jest/recommended", "airbnb"],
   "overrides": [],
   "parserOptions": {
+    "requireConfigFile": false,
     "ecmaFeatures": {
       "jsx": true
+    },
+    "babelOptions": {
+       "presets": ["@babel/preset-react"]
     },
     "ecmaVersion": "latest",
     "sourceType": "module"

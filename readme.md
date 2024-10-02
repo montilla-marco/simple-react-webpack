@@ -23,5 +23,3 @@ $ npm run start
 ```sh
 $ npm run build
 ```
-
-note: https://jsramblings.com/creating-a-react-app-with-webpack/, https://javascript.plainenglish.io/webpack-in-2021-typescript-jest-sass-eslint-7b4640842e27

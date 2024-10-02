@@ -1,20 +1,15 @@
-const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const webpack = require('webpack');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const ESLintPlugin = require('eslint-webpack-plugin');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-const sourceDir = './src/';
-const publicDir = './public/';
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const PATHS = {
-  app: `${sourceDir}index.js`,
-  html: `${publicDir}index.html`,
-  build: path.resolve(__dirname, 'dist'),
+  src: path.resolve(__dirname, "src"),
+  assets: path.resolve(__dirname, "src/assets"),
+  app: path.resolve(__dirname, "src/index.js"),
+  template: path.resolve(__dirname, "public/index.html"),
+  build: path.resolve(__dirname, "dist"),
 };
 
 module.exports = {
@@ -22,49 +17,60 @@ module.exports = {
     main: PATHS.app,
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: "[name].[hash].js",
     path: PATHS.build,
+    assetModuleFilename: 'assets/[hash][ext][query]'
   },
   plugins: [
-    new webpack.ProgressPlugin(),
     new CleanWebpackPlugin(),
     new ESLintPlugin({ fix: true }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
     new HtmlWebpackPlugin({
-      title: 'Custom template',
-      // Load a custom template (lodash by default see the FAQ for details)
-      template: PATHS.html,
+      title: "marcomarco++ simple react webpack boilerplate",
+      template: PATHS.template,
     }),
   ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        include: PATHS.src,
         exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: require.resolve('url-loader'),
-        options: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]',
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ["@babel/preset-env", { targets: "defaults" }],
+              ["@babel/preset-react", { runtime: "automatic" }],
+            ],
+            plugins: [],
+          },
         },
       },
-    ],
-  },
-  resolve: {
-    extensions: ['*', '.js', '.jsx'],
-    modules: [
-      'node_modules',
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
     },
   },
 };
